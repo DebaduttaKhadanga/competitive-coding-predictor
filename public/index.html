@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competitive Coding Performance &amp; Rating Trajectory Predictor</title>
+  <meta name="description" content="Forecast your Codeforces rating trajectory and discover your topic bottlenecks." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">&lt;/&gt;</span>
+        <div class="brand-text">
+          <h1>Rating Trajectory Predictor</h1>
+          <p>Codeforces performance forecasting &amp; topic diagnostics</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="search-card" aria-label="Analyze a Codeforces handle">
+        <form id="analyze-form" class="search-form" autocomplete="off">
+          <label for="handle-input" class="visually-hidden">Codeforces handle</label>
+          <input
+            id="handle-input"
+            name="handle"
+            type="text"
+            placeholder="Enter a Codeforces handle, e.g. tourist"
+            required
+          />
+          <button id="analyze-btn" type="submit">
+            <span class="btn-label">Analyze</span>
+          </button>
+        </form>
+        <div id="error-banner" class="error-banner" role="alert" hidden></div>
+      </section>
+
+      <section id="loading-state" class="loading-state" hidden>
+        <div class="loading-spinner"></div>
+        <p id="loading-message">Fetching profile from Codeforces&hellip;</p>
+        <div class="loading-progress" aria-hidden="true">
+          <div class="loading-progress-bar"></div>
+        </div>
+      </section>
+
+      <section id="results" class="results" hidden>
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-label">Current Rating</span>
+            <span id="stat-current-rating" class="stat-value">&mdash;</span>
+            <span id="stat-rank" class="stat-sub">&mdash;</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Max Rating</span>
+            <span id="stat-max-rating" class="stat-value">&mdash;</span>
+            <span class="stat-sub">All-time peak</span>
+          </div>
+          <div class="stat-card accent">
+            <span class="stat-label">Predicted Peak Rating</span>
+            <span id="stat-predicted-peak" class="stat-value">&mdash;</span>
+            <span class="stat-sub">Next 5 contests</span>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <h2>Rating Trajectory</h2>
+            <div class="legend">
+              <span class="legend-item"><i class="dot dot-actual"></i>Historical rating</span>
+              <span class="legend-item"><i class="dot dot-predicted"></i>Predicted rating</span>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="rating-chart" height="110"></canvas>
+          </div>
+        </div>
+
+        <div class="bottom-grid">
+          <div class="panel">
+            <h2>Top Topic Bottlenecks</h2>
+            <p class="panel-sub">Tags with the lowest time-decayed performance index (TPI)</p>
+            <ul id="bottleneck-list" class="bottleneck-list"></ul>
+          </div>
+
+          <div class="panel">
+            <h2>Topic Proficiency</h2>
+            <p class="panel-sub">Clustered by solved count &amp; average difficulty</p>
+            <div id="tag-clusters" class="tag-clusters"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Data sourced live from the Codeforces API. Predictions are statistical estimates, not guarantees.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
