@@ -1,0 +1,12 @@
+[project]
+name = "competitive-coding-predictor"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "scikit-learn==1.9.0",
+    "numpy==2.5.2",
+    "requests==2.34.2",
+]
+
+[tool.vercel]
+entrypoint = "api.predict:handler"
