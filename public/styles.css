@@ -20,6 +20,15 @@
   box-sizing: border-box;
 }
 
+/* The [hidden] attribute must always win, even over classes like
+   .loading-state that set their own `display`. Without this, an element
+   with both a class-based `display: flex/grid` and the `hidden` attribute
+   stays visible, since author-stylesheet specificity ties beat the
+   browser's built-in [hidden] rule. */
+[hidden] {
+  display: none !important;
+}
+
 html, body {
   margin: 0;
   padding: 0;
